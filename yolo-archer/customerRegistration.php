@@ -10,21 +10,18 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <form action="customerRegistration.php" method="POST">
-            Name: <input type="text" name="name"/><br/>
-            <?php if(!($nameIsValid)){echo ("Name must be longer than 3 characters and less than 45.<br/>");} ?>
-            Address: <input type="text" name="address"/><br/>
-            <?php if(!$addressIsValid){echo ("Adress must be longer than 3 characters and less than 45.<br/>");} ?>
-            Credit Card Number: <input type="text" name="cc_number"/><br/>
-            <?php if(!$ccNumberIsValid){echo ("Credit card number must be 16 numbers long.<br/>");} ?>
-            Phone Number: <input type="text" name="phone"/><br/>
-            <?php if(!$phoneIsValid){echo ("Phone number must be 10 numbers long.<br/>");} ?>
-            Email: <input type="text" name="email"/><br/>
-            <?php if(!$emailIsValid){echo ("Email must be longer than 3 characters and less than 45.<br/>");} ?>
-            <input type="submit" value="Register"/>
-        </form>
-        
-        <?php
+         <?php
+         $usernameIsValid = true;
+         $usernameIsDuplicate = true;
+         $passwordIsValid = true;
+         $passwordsMatch = true;
+         $nameIsValid = true;
+         $addressIsValid = true;
+         $ccNumberIsValid = true;
+         $phoneIsValid = true;
+         $emailIsValid = true;
+         
+            
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             $dbHost = "68.191.214.214";
             $dbUsername = "galefisher";
@@ -33,22 +30,21 @@ and open the template in the editor.
             $dbPort = 3306;
             $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, 3306);
             if (!$con) {
-                echo "Not Connected.";
                 exit('Connect Error (' . mysqli_connect_errno() . ') '
                     . mysqli_connect_error());
                 }
-            else{
-                echo "Connected!";
-            }
-            
+           
             mysqli_set_charset($con, 'utf-8');
             
-            $nameIsValid = true;
-            $addressIsValid = true;
-            $ccNumberIsValid = true;
-            $phoneNumberIsValid = true;
-            $emailIsValid = true;
-            
+            if(strlen($_POST['username']) < 3 || strlen($_POST['username']) > 45){
+                $usernameIsValid = false;
+            }
+            if(strlen($_POST['password1']) < 7 || strlen($_POST['password2']) < 7){
+                $passwordIsValid = false;
+            }
+            if($_POST['password1'] != $_POST['password2']){
+                $passwordsMatch = false;
+            }
             if(strlen($_POST['name']) < 3 || strlen($_POST['name']) > 45){
                 $nameIsValid = false;
             }
@@ -65,21 +61,68 @@ and open the template in the editor.
                 $emailIsValid = false;
             }
             
-            $sql="INSERT INTO customer (name, address, cc_number, phone_number, email_address)VALUES"
+            //check to see if username is a duplicate
+            $query = "select username from login where username = '" .  $_POST[username] . "'";
+            if(mysqli_num_rows(mysqli_query($con, $query)) > 0){
+                $usernameIsDuplicate = false;
+            }
+                                    
+            if($usernameIsValid && $passwordIsValid && $passwordsMatch && $nameIsValid && $addressIsValid && $ccNumberIsValid && $phoneIsValid && $emailIsValid){
+                                
+                 $sql="INSERT INTO customer (name, address, cc_number, phone_number, email_address) VALUE"
                 . "('$_POST[name]','$_POST[address]','$_POST[cc_number]','$_POST[phone]','$_POST[email]')";
-            
-            if(!$nameIsValid && !$addressIsValid && !$ccNumberIsValid && !$phoneIsValid && !$emailIsValid){
+                
                 if(!mysqli_query($con, $sql)){
                     echo 'Error: ' . mysqli_error($con);
+                    exit;
+                } 
+                
+                //Get id of newly inserted customer
+                $sql = "select id from customer where name = '" . $_POST[name] . "' and cc_number = '" . $_POST[cc_number] . "'";
+                $row = mysqli_fetch_array(mysqli_query($con, $sql));
+                $id = $row["id"];
+                
+                $sql = "INSERT INTO login (id, username, password) VALUE" 
+                . "('$id','$_POST[username]','$_POST[password1]')";
+                
+                if(!mysqli_query($con, $sql)){
+                    echo 'Error: ' . mysqli_error($con);
+                    exit;
                 }
+                
+                echo "User account registered!";
+                
             }
+            
             mysqli_close($con);
         }
-        
-        
-        
-        
+                        
         ?>
+        
+        
+        
+        <form action="customerRegistration.php" method="POST">
+            Username: <input type="text" name="username"/><br/>
+            <?php if(!($usernameIsValid)){echo ("Username must be longer than 3 characters and less than 45.<br/>");} ?>
+            <?php if(!($usernameIsDuplicate)){echo ("Username already in use.<br/>");} ?>
+            Password: <input type="password" name="password1"/><br/>
+            <?php if(!($passwordIsValid)){echo ("Password must be at least 8 characters long.<br/>");} ?>
+            Password Confirmation: <input type="password" name="password2"/><br/>
+            <?php if(!($passwordsMatch)){echo ("Passwords do not match.<br/>");} ?>
+            Name: <input type="text" name="name"/><br/>
+            <?php if(!($nameIsValid)){echo ("Name must be longer than 3 characters and less than 45.<br/>");} ?>
+            Address: <input type="text" name="address"/><br/>
+            <?php if(!$addressIsValid){echo ("Adress must be longer than 3 characters and less than 45.<br/>");} ?>
+            Credit Card Number: <input type="text" name="cc_number"/><br/>
+            <?php if(!$ccNumberIsValid){echo ("Credit card number must be 16 numbers long.<br/>");} ?>
+            Phone Number: <input type="text" name="phone"/><br/>
+            <?php if(!$phoneIsValid){echo ("Phone number must be 10 numbers long.<br/>");} ?>
+            Email: <input type="email" name="email"/><br/>
+            <?php if(!$emailIsValid){echo ("Email must be longer than 3 characters and less than 45.<br/>");} ?>
+            <input type="submit" value="Register"/>
+        </form>
+        
+       
         
     </body>
 </html>
