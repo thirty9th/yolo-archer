@@ -31,9 +31,7 @@ and open the template in the editor.
         $nameIsValid = true;
         $addressIsValid = true;
         $phoneIsValid = true;
-        $storeIsValid = true;
-        $departmentIsValid = true;
-            
+                    
         if($_SERVER["REQUEST_METHOD"] == "POST") {
             if(strlen($_POST['username']) < 3 || strlen($_POST['username']) > 45){
                 $usernameIsValid = false;
@@ -53,12 +51,7 @@ and open the template in the editor.
             if(strlen($_POST['phone']) != 10){
                 $phoneIsValid = false;
             }
-            if(strlen($_POST['store']) < 1){
-                $storeIsValid = false;
-            }
-            if(strlen($_POST['department']) < 1){
-                $departmentIsValid = false;
-            }
+            
             
             
             
@@ -68,10 +61,10 @@ and open the template in the editor.
                 $usernameIsDuplicate = false;
             }
                                     
-            if($usernameIsValid && $passwordIsValid && $passwordsMatch && $nameIsValid && $addressIsValid && $storeIsValid && $departmentIsValid){
+            if($usernameIsValid && $passwordIsValid && $passwordsMatch && $nameIsValid && $addressIsValid && $phoneIsValid){
                                 
-                 $sql="INSERT INTO employee (name, address, store, department) VALUE"
-                . "('$_POST[name]','$_POST[address]','$_POST[cc_number]','$_POST[phone]','$_POST[email]')";
+                 $sql="INSERT INTO employee (name, address, phone_number, store_id, department) VALUE"
+                . "('$_POST[name]','$_POST[address]','$_POST[phone]','$_POST[store]','$_POST[department]')";
                 
                 if(!mysqli_query($con, $sql)){
                     echo 'Error: ' . mysqli_error($con);
@@ -79,7 +72,7 @@ and open the template in the editor.
                 } 
                 
                 //Get id of newly inserted employee
-                $sql = "select id from customer where name = '" . $_POST[name] . "' and cc_number = '" . $_POST[cc_number] . "'";
+                $sql = "select id from employee where name = '" . $_POST[name] . "' and phone_number = '" . $_POST[phone] . "'";
                 $row = mysqli_fetch_array(mysqli_query($con, $sql));
                 $id = $row["id"];
                 
@@ -100,19 +93,48 @@ and open the template in the editor.
         
         
             
-
+            function get_store_ids() {
+                $dbHost = "68.191.214.214";
+                $dbUsername = "galefisher";
+                $dbPassword = "galefisher";       
+                $dbTable = "galefisherautoparts";
+                $dbPort = 3306;
+                $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, $dbPort);
+                $query = "select distinct id from store";
+                $result = mysqli_query($con, $query);
+                $storeIds = array();
+                while(($row = mysqli_fetch_array($result)) != NULL){
+                    array_push($storeIds, $row["id"]);
+                };
+                //print_r($row);
+                print_r($storeIds);
+                mysqli_close($con);
+                return $storeIds;
+            }
 
 
             //Code to get enum values borrowed from http://stackoverflow.com/questions/2350052/how-can-i-get-enum-possible-values-in-a-mysql-database
-            function get_enum_values( $table, $field )
-            {
-                $type = $this->db->query( "SHOW COLUMNS FROM {$table} WHERE Field = '{$field}'" )->row( 0 )->Type;
-                preg_match('/^enum\((.*)\)$/', $type, $matches);
-                foreach( explode(',', $matches[1]) as $value )
-                {
-                     $enum[] = trim( $value, "'" );
-                }
+            function get_enum_values( $table, $field ) {
+                $dbHost = "68.191.214.214";
+                $dbUsername = "galefisher";
+                $dbPassword = "galefisher";       
+                $dbTable = "galefisherautoparts";
+                $dbPort = 3306;
+                $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, $dbPort);
+                $query = "SELECT column_type FROM information_schema.`COLUMNS` WHERE table_schema = 'galefisherautoparts' AND table_name = '". $table ."' AND column_name = '". $field . "'";
+                $result = mysqli_query($con, $query); 
+                $row = mysqli_fetch_array($result);
+                //print_r($row);
+                $words = implode($row);
+                $words = substr($words, 0, strlen($words)/2);
+                preg_match('/^enum\((.*)\)$/', $words, $matches);
+                    foreach( explode(',', $matches[1]) as $value )
+                    {
+                        $enum[] = trim( $value, "'" );
+                    }
+                mysqli_close($con);
                 return $enum;
+                
             }
         ?>
         
@@ -128,19 +150,22 @@ and open the template in the editor.
             <?php if(!($nameIsValid)){echo ("Name must be longer than 3 characters and less than 45.<br/>");} ?>
             Address: <input type="text" name="address"/><br/>
             <?php if(!$addressIsValid){echo ("Adress must be longer than 3 characters and less than 45.<br/>");} ?>
+            Phone Number: <input type="text" name="phone"/><br/>
+            <?php if(!$phoneIsValid){echo ("Phone number must be 10 numbers long.<br/>");} ?>
+            <?php $storeArray = get_store_ids(); ?>
             Store:  <select name="store">
-                    <?php foreach($array as $option) : ?>
-                        <option value="<?php echo $option['Name']; ?>"><?php echo $option['Name']; ?></option>
+                    <?php foreach($storeArray as $option) : ?>
+                        <option value="<?php echo $option; ?>"><?php echo $option; ?></option>
                     <?php endforeach; ?>
                     </select>
                     <br/>
+             <?php $departmentArray = get_enum_values( "employee", "department");?>
             Department: <select name="department">
-                        <?php foreach($array as $option) : ?>
-                            <option value="<?php echo $option['Name']; ?>"><?php echo $option['Name']; ?></option>
+                        <?php foreach($departmentArray as $option) : ?>
+                            <option value="<?php echo $option; ?>"><?php echo $option; ?></option>
                         <?php endforeach; ?>
-                        </select>
-            
-            
+                        </select> <br/>
+            <input type="submit" value="Register"/>
             <?php mysqli_close($con); ?>
         </form>
     </body>
