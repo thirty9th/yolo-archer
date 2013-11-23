@@ -62,34 +62,21 @@ and open the template in the editor.
             }
             
             //check to see if username is a duplicate
-            $query = "select username from login where username = '" .  $_POST[username] . "'";
+            $query = "select username from customer where username = '" .  $_POST[username] . "'";
             if(mysqli_num_rows(mysqli_query($con, $query)) > 0){
                 $usernameIsDuplicate = false;
             }
                                     
             if($usernameIsValid && $passwordIsValid && $passwordsMatch && $nameIsValid && $addressIsValid && $ccNumberIsValid && $phoneIsValid && $emailIsValid){
                                 
-                 $sql="INSERT INTO customer (name, address, cc_number, phone_number, email_address) VALUE"
-                . "('$_POST[name]','$_POST[address]','$_POST[cc_number]','$_POST[phone]','$_POST[email]')";
+                 $sql="INSERT INTO customer (name, address, cc_number, phone_number, email_address, username, password) VALUE"
+                . "('$_POST[name]','$_POST[address]','$_POST[cc_number]','$_POST[phone]','$_POST[email]','$_POST[username]','$_POST[password1]')";
                 
                 if(!mysqli_query($con, $sql)){
                     echo 'Error: ' . mysqli_error($con);
                     exit;
                 } 
-                
-                //Get id of newly inserted customer
-                $sql = "select id from customer where name = '" . $_POST[name] . "' and cc_number = '" . $_POST[cc_number] . "'";
-                $row = mysqli_fetch_array(mysqli_query($con, $sql));
-                $id = $row["id"];
-                
-                $sql = "INSERT INTO login (id, username, password) VALUE" 
-                . "('$id','$_POST[username]','$_POST[password1]')";
-                
-                if(!mysqli_query($con, $sql)){
-                    echo 'Error: ' . mysqli_error($con);
-                    exit;
-                }
-                
+                              
                 echo "User account registered!";
                 
             }

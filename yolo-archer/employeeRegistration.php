@@ -56,33 +56,20 @@ and open the template in the editor.
             
             
             //check to see if username is a duplicate
-            $query = "select username from login where username = '" .  $_POST[username] . "'";
+            $query = "select username from employee where username = '" .  $_POST[username] . "'";
             if(mysqli_num_rows(mysqli_query($con, $query)) > 0){
                 $usernameIsDuplicate = false;
             }
                                     
             if($usernameIsValid && $passwordIsValid && $passwordsMatch && $nameIsValid && $addressIsValid && $phoneIsValid){
                                 
-                 $sql="INSERT INTO employee (name, address, phone_number, store_id, department) VALUE"
-                . "('$_POST[name]','$_POST[address]','$_POST[phone]','$_POST[store]','$_POST[department]')";
+                 $sql="INSERT INTO employee (name, address, phone_number, store_id, department, username, password) VALUE"
+                . "('$_POST[name]','$_POST[address]','$_POST[phone]','$_POST[store]','$_POST[department]','$_POST[username]','$_POST[password]')";
                 
                 if(!mysqli_query($con, $sql)){
                     echo 'Error: ' . mysqli_error($con);
                     exit;
                 } 
-                
-                //Get id of newly inserted employee
-                $sql = "select id from employee where name = '" . $_POST[name] . "' and phone_number = '" . $_POST[phone] . "'";
-                $row = mysqli_fetch_array(mysqli_query($con, $sql));
-                $id = $row["id"];
-                
-                $sql = "INSERT INTO login (id, username, password) VALUE" 
-                . "('$id','$_POST[username]','$_POST[password1]')";
-                
-                if(!mysqli_query($con, $sql)){
-                    echo 'Error: ' . mysqli_error($con);
-                    exit;
-                }
                 
                 echo "User account registered!";
                 
@@ -106,8 +93,6 @@ and open the template in the editor.
                 while(($row = mysqli_fetch_array($result)) != NULL){
                     array_push($storeIds, $row["id"]);
                 };
-                //print_r($row);
-                print_r($storeIds);
                 mysqli_close($con);
                 return $storeIds;
             }
