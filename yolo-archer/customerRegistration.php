@@ -28,7 +28,7 @@ and open the template in the editor.
             $dbPassword = "galefisher";       
             $dbTable = "galefisherautoparts";
             $dbPort = 3306;
-            $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, 3306);
+            $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, $dbPort);
             if (!$con) {
                 exit('Connect Error (' . mysqli_connect_errno() . ') '
                     . mysqli_connect_error());

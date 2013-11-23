@@ -16,7 +16,7 @@ and open the template in the editor.
         $dbPassword = "galefisher";       
         $dbTable = "galefisherautoparts";
         $dbPort = 3306;
-        $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, 3306);
+        $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, $dbPort);
         if (!$con) {
             exit('Connect Error (' . mysqli_connect_errno() . ') '
                 . mysqli_connect_error());
@@ -64,7 +64,7 @@ and open the template in the editor.
             if($usernameIsValid && $passwordIsValid && $passwordsMatch && $nameIsValid && $addressIsValid && $phoneIsValid){
                                 
                  $sql="INSERT INTO employee (name, address, phone_number, store_id, department, username, password) VALUE"
-                . "('$_POST[name]','$_POST[address]','$_POST[phone]','$_POST[store]','$_POST[department]','$_POST[username]','$_POST[password]')";
+                . "('$_POST[name]','$_POST[address]','$_POST[phone]','$_POST[store]','$_POST[department]','$_POST[username]','$_POST[password1]')";
                 
                 if(!mysqli_query($con, $sql)){
                     echo 'Error: ' . mysqli_error($con);
