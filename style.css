@@ -7,7 +7,7 @@
 	padding: 0px;
 	font-family: Tahoma;
 	font-size: 14px;
-	color: #F8F7EE;
+	color: #2A2A2A;
 	overflow: auto;
 }
 
@@ -15,7 +15,14 @@
 body
 {
 	background-color: #F8F7EE;
-	color: #000000;
+	color: #2A2A2A;
+}
+
+.normal
+{
+	color: #2a2a2a;
+	font-weight: normal;
+	font-size: 14px;
 }
 
 #header-small-logo-wrapper
@@ -34,6 +41,13 @@ body
 	margin: 0px auto;
 	padding: 5px;
 	border-left: 1px solid #cecece;
+}
+
+form.login-input
+{
+	padding: 10px;
+	background-color: #e3e3e3;
+	width: 300px;
 }
 
 #header
@@ -108,7 +122,6 @@ body
 	float: left;
 	width: 130px;
 	height: 45px;
-	background-color: #FF0000;
 	border-left: 1px solid #b9b9b9;
 }
 
@@ -135,7 +148,7 @@ body
 	background-color: #d3d3d3;
 }
 
-#content-title p
+p.content-title
 {
 	color: #2a2a2a;
 	font-size: 16px;
@@ -179,6 +192,17 @@ body
 	float: left;
 	height: 300px;
 	width: 350px;
+}
+
+#login-content-wrapper
+{
+	width: 800px;
+	background-color: #d3d3d3;
+	border: 1px solid #b9b9b9;
+	min-height: 250px;
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #footer-wrapper
