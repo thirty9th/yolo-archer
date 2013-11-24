@@ -1,4 +1,6 @@
-<?php
+<?php session_start();
+
+ini_set('session.use_cookies', '1');
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -21,7 +23,7 @@ function checkLoginInfo($inUsername, $inPassword)
 	}
 	
 	// Open a database connection
-	$dbHost = '8.191.214.214';
+	$dbHost = '68.191.214.214';
     $dbUsername = 'galefisher';
 	$dbPassword = 'galefisher';       
 	$dbTable = 'galefisherautoparts';
@@ -41,12 +43,15 @@ function checkLoginInfo($inUsername, $inPassword)
 		echo '<p>Error! Requested username not found. </p>';
 		return;
 	}
-	$query = 'select password from customer where username = "' . $inUsername . '"';
 	
 	// Check password against stored password
-	if (mysqli_query($con, $query) == $inPassword)
+	$query = 'select password from customer where username = "' . $inUsername . '"';
+	$result = mysqli_query($con, $query);
+	$row = mysqli_fetch_array($result);
+	if ($row['password'] == $inPassword)
 	{
 		echo '<p>Thank you for logging in, ' . $inUsername . '.</p>';
+		$_SESSION['username'] = $inUsername;
 	}
 	else
 	{
@@ -67,7 +72,20 @@ echo '
 		<div id="header-small-logo-wrapper">
 			<a href="main.php"><img src="images/button_home_tab.png" alt="Logo" /></a>
 		</div>
-		<div class="login"><a href="customerRegistration.php">Register</a>&nbsp;&nbsp;&nbsp;<a href="login.php">Login</a></div>
+		<div class="login">';
+		if (!isset($_SESSION['username']))	// User is not logged in yet
+		{
+			echo '
+				<a href="customerRegistration.php">Register</a>&nbsp;&nbsp;&nbsp;<a href="login.php">Login</a>';
+		}
+		else	// User is logged in
+		{
+			echo '
+				<p>User:</p>
+				<a>[' . $_SESSION['username'] . ']</a>';
+		}
+		echo '
+		</div>
 	</div>
 	<div id="login-content-wrapper">';
 

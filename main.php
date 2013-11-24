@@ -1,100 +1,8 @@
 <!-- Solution for Program 2 - Dillon Fisher -->
 
-<?php
+<?php session_start();
 
-// Functions
-function radioButtons($fieldName, $buttonValues, $defaultButton = '') {
-	// Do some error checking
-	if (!is_string($fieldName)) {
-		return "<p style=\"color:red;\">Error! Parameter 1 (fieldName) must be a single string.</p>";
-	}
-	if (!is_array($buttonValues)) {
-		return "<p style=\"color:red;\">Error! Parameter 2 (buttonValues) must be an array of scalars.</p>";
-	}
-	if (isset($defaultButton)) {
-		if (!is_scalar($defaultButton)) {
-			return "<p style=\"color:red;\">Error! Paramter 3 (defaultButton) must be a scalar value.</p>";
-		}
-	}
-
-	// Build the string containing the radio button's HTML code
-	$result = "";
-	foreach($buttonValues as $buttonValue) {
-		// Preliminary error-checking
-		if (!is_scalar($buttonValue)) {
-			return "<p style=\"color:red;\">Error! Parameter 2 (buttonValues) must be an array of scalars.</p>";
-		}
-		$result .= "<input type=\"radio\" name=\"{$fieldName}\" value=\"{$buttonValue}\" ";
-		if ($buttonValue == $defaultButton) $result .= "checked=\"checked\" ";
-		$result .= "/> {$buttonValue} ";
-	}
-
-	return $result;
-};
-
-function picklist($fieldName, $optionValues, $defaultValues ='', $size = '') {
-	// Do some error checking
-	if (!is_string($fieldName)) {
-		return "<p style=\"color:red\">Error! Parameter 1 (fieldName) must contain a string.</p>";
-	}
-	if (!is_array($optionValues)) {
-		return "<p style=\"color:red;\">Error! Parameter 2 (optionValues) must contain an array of scalars.</p>";
-	}
-	if ($defaultValues != '') {
-		if (!is_scalar($defaultValues)) {
-			foreach($defaultValues as $defaultValue) {
-				if (!is_scalar($defaultValue)) {
-					return "<p style=\"color:red;\">Error! Parameter 3 (defaultValues) must contain either a scalar values or an array of scalar values.</p>";
-				}
-			}
-		}
-	}
-	if ($size != '') {
-		if (!(is_numeric($size) && is_scalar($size))) {
-			return "<p style=\"color:red;\">Error! Parameter 4 (size) must contain a number.</p>";
-		}
-	}
-
-	// Build the string containing the picklist's HTML code
-	$result = "<select multiple=\"multiple\" name=\"{$fieldName}\" ";
-
-	// Figure out if we need to add the size flag
-	if (isset($size) and $size >= 1) {
-		$result .= "size=\"{$size}\"";
-	}
-
-	// Close opening tag
-	$result .= ">\n";
-
-	foreach($optionValues as $optionValue) {
-		// Preliminary error checking
-		if (!is_scalar($optionValue)) {
-			return "<p style=\"color:red;\">Error! Parameter 2 ($optionValues) must contain an array of scalars.</p>";
-		}
-
-		// Open tag for each option
-		$result .= "\t\t\t<option";
-
-		// Figure out if we need to add its selected flag
-		if (is_scalar($defaultValues)) {
-			if ($optionValue == $defaultValues) {
-				$result .= " selected=\"selected\"";
-			}
-		} else if (is_array($defaultValues)) {
-			if (in_array($optionValue, $defaultValues)) {
-				$result .= " selected=\"selected\"";
-			}
-		}
-
-		// Close beginning tag and set it's value
-		$result .= ">{$optionValue}</option>\n";
-	}
-
-	// Close the select tag
-	$result .= "</select>";
-
-	return $result;
-};
+ini_set('session.use_cookies', '1');
 
 // Header material
 echo '
@@ -112,7 +20,19 @@ echo '
 		<div id="header-small-logo-wrapper">
 			<a href="main.php"><img src="images/button_home_tab.png" alt="Logo" /></a>
 		</div>
-		<div class="login"><a href="customerRegistration.php">Register</a>&nbsp;&nbsp;&nbsp;<a href="login.php">Login</a></div>
+		<div class="login">';
+		if (!isset($_SESSION['username']))	// User is not logged in yet
+		{
+			echo '
+				<a href="customerRegistration.php">Register</a>&nbsp;&nbsp;&nbsp;<a href="login.php">Login</a>';
+		}
+		else	// User is logged in
+		{
+			echo '
+				<a><' . $_SESSION['username'] . '></a>';
+		}
+		echo '
+		</div>
 	</div>
 	<div id="logo-wrapper">
 		<div id="logo-image">
