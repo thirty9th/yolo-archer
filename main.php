@@ -1,5 +1,3 @@
-<!-- Solution for Program 2 - Dillon Fisher -->
-
 <?php session_start();
 
 ini_set('session.use_cookies', '1');
@@ -29,7 +27,7 @@ echo '
 		else	// User is logged in
 		{
 			echo '
-				<a><' . $_SESSION['username'] . '></a>';
+				<p>User:</p>&nbsp;<a>[' . $_SESSION['username'] . ']</a>';
 		}
 		echo '
 		</div>
