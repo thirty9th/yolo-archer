@@ -50,7 +50,8 @@ function checkLoginInfo($inUsername, $inPassword)
 	$row = mysqli_fetch_array($result);
 	if ($row['password'] == $inPassword)
 	{
-		echo '<p>Thank you for logging in, ' . $inUsername . '.</p>';
+		echo '<p>Thank you for logging in, ' . $inUsername . '.</p>
+			<a href="main.php">Return Home</a>';
 		$_SESSION['username'] = $inUsername;
 	}
 	else
@@ -66,36 +67,23 @@ echo '
 	<title>Gale-Fisher Auto Parts</title>
 	<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body>';
 
-	<div id="header">
-		<div id="header-small-logo-wrapper">
-			<a href="main.php"><img src="images/button_home_tab.png" alt="Logo" /></a>
-		</div>
-		<div class="login">';
-		if (!isset($_SESSION['username']))	// User is not logged in yet
-		{
-			echo '
-				<a href="customerRegistration.php">Register</a>&nbsp;&nbsp;&nbsp;<a href="login.php">Login</a>';
-		}
-		else	// User is logged in
-		{
-			echo '
-				<p>User:</p>
-				<a>[' . $_SESSION['username'] . ']</a>';
-		}
-		echo '
-		</div>
-	</div>
+	include_once('navbar.php');
+	echo '
 	<div id="login-content-wrapper">';
 
 // Page was requested via the form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	// Check login info
-	echo '<p>DEBUG: pass was ' . $_POST['password'] . '</p>';
-	echo '<p>DEBUG: user was ' . $_POST['username'] . '</p>';
+	echo '<p class="content-title">Login Status</p>
+	<div id="login-result">
+		<p>';
 	checkLoginInfo($_POST['username'], $_POST['password']);
+	echo '
+		</p>
+	</div>';
 	
 }
 else	// Page was (probably) requested via simple HTTP request
@@ -115,14 +103,9 @@ else	// Page was (probably) requested via simple HTTP request
 
 // Footer
 echo '
-	</div>
-	<div id="footer-wrapper">
-		<div id="footer-content">
-			<p class="footer-text">Site and database implementation created by:<br />
-			James Gale and Dillon Fisher<br />
-			Last updated: November 2013</p>
-		</div>
-	</div>
+	</div>';
+include_once('footer.php');
+echo '
 </body>
 </html>';
 

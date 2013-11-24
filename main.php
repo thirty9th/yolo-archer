@@ -12,26 +12,10 @@ echo '
 
 // Body
 echo '
-<body>
+<body>';
 
-	<div id="header">
-		<div id="header-small-logo-wrapper">
-			<a href="main.php"><img src="images/button_home_tab.png" alt="Logo" /></a>
-		</div>
-		<div class="login">';
-		if (!isset($_SESSION['username']))	// User is not logged in yet
-		{
-			echo '
-				<a href="customerRegistration.php">Register</a>&nbsp;&nbsp;&nbsp;<a href="login.php">Login</a>';
-		}
-		else	// User is logged in
-		{
-			echo '
-				<p>User:</p>&nbsp;<a>[' . $_SESSION['username'] . ']</a>';
-		}
-		echo '
-		</div>
-	</div>
+	include_once('navbar.php');
+	echo '
 	<div id="logo-wrapper">
 		<div id="logo-image">
 			<img src="images/logo_large.png" alt="Logo" />
@@ -39,17 +23,6 @@ echo '
 		<div id="logo-title">
 			<p>Gale-Fisher<br/>
 			Auto Parts</p>
-		</div>
-	</div>
-	<div id="navbar-wrapper">
-		<div id="navbar-item">
-			<a href="main.php"><img src="images/button_navbar_home.png" alt="Home" /></a>
-		</div>
-		<div id="navbar-item">
-			<img src="images/button_navbar_parts.png" alt="Parts" />
-		</div>
-		<div id="navbar-item">
-			<img src="images/button_navbar_about.png" alt="About Us" />
 		</div>
 	</div>
 	<div id="content-wrapper">
@@ -69,14 +42,8 @@ echo '
 	</div>';
 	
 // Footer
+include_once('footer.php');
 echo '
-	<div id="footer-wrapper">
-		<div id="footer-content">
-			<p class="footer-text">Site and database implementation created by:<br />
-			James Gale and Dillon Fisher<br />
-			Last updated: November 2013</p>
-		</div>
-	</div>
 </body>
 </html>';
 
