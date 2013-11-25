@@ -10,9 +10,6 @@
 
 </form>
 
-
-
-
 <?php
     function printCustomerOrderHistory($customerId){
         if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -42,6 +39,7 @@
 
 
             echo $sql;
+            mysqli_close($con);
 
         }
     }
