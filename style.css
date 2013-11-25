@@ -50,6 +50,13 @@ form.login-input
 	width: 300px;
 }
 
+form.search-input
+{
+	padding: 10px;
+	background-color: #e3e3e3;
+	width: 300px;
+}
+
 #header
 {
 	min-height: 25px;

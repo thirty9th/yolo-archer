@@ -7,10 +7,10 @@ echo '
 	</div>
 	<div id="navbar-wrapper">
 		<div id="navbar-item">
-			<img src="images/button_navbar_home.png" alt="Home Page" />
+			<a href="main.php"><img src="images/button_navbar_home.png" alt="Home Page" /></a>
 		</div>
 		<div id="navbar-item">
-			<img src="images/button_navbar_parts.png" alt="Parts Catalog" />
+			<a href="partSearch.php"><img src="images/button_navbar_parts.png" alt="Parts Catalog" /></a>
 		</div>
 		<div id="navbar-item">
 			<img src="images/button_navbar_about.png" alt="About Us" />
