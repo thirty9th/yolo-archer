@@ -10,7 +10,7 @@
 
             include_once('navbar.php');
             echo '
-            <div id="search-content-wrapper">';
+            <div id="login-content-wrapper">';
 ?>
 
 <form class="search-input" action="partSearch.php" method="POST">

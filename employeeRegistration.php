@@ -4,12 +4,21 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
+<?php
+        // Header material
+        echo '
+        <html>
+            <head>
+                <title>Gale-Fisher Auto Parts</title>
+                <link href="style.css" rel="stylesheet" type="text/css" />
+            </head>
+        <body>';
+
+        include_once('navbar.php');
+        echo '
+	<div id="login-content-wrapper">';
+
+?>
         <?php
         $dbHost = "68.191.214.214";
         $dbUsername = "galefisher";
@@ -153,5 +162,12 @@ and open the template in the editor.
             <input type="submit" value="Register"/>
             <?php mysqli_close($con); ?>
         </form>
-    </body>
-</html>
+<?php
+    // Footer
+    echo '
+            </div>';
+            include_once('footer.php');
+        echo '
+        </body>
+    </html>';
+?>
