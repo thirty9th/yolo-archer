@@ -2,6 +2,7 @@
     session_start();
 
     ini_set('session.use_cookies', '1');
+    include 'functions.php';
     
     // Header material
         echo '
@@ -17,7 +18,7 @@
 	<div id="login-content-wrapper">';
 
 
-    if(isset($_GET["part"]) || $_POST["part"]) {
+    if(isset($_GET["part"]) || isset($_POST["part"])) {
         $dbHost = "68.191.214.214";
         $dbUsername = "galefisher";
         $dbPassword = "galefisher";       
@@ -49,22 +50,46 @@
          
          echo $row["description"] . "<br/>";
          
-         echo "$" . $row["price"] . "      <input type=\"number\" name=\"quantity\" min=\"1\" max=\"5\">";
+         echo "$" . $row["price"] . "      <input type=\"number\" name=\"quantity\" min=\"1\" max=\"5\"><br/>";
+         
+         $addresses = get_store_address();
+         echo "Store:  <select name=\"store\">";
+         foreach($addresses as $option) : 
+            echo "<option value=". $option . "\">" . $option . "</option>";
+         endforeach;
+         echo"</select> <br/>";
          
          echo "<input type = \"submit\" value = \"Add To Cart\" name = \"addToCart\" /> <br/>";
          
+         
+         
          echo"</form>";
          
-         if($_POST["part"] != null){
-             if($_SESSION["username"] != null){
-                 if($_SESSION["cart"] == null){
-                 $_SESSION["cart"] = array();
-             }
+         if(isset($_POST["quantity"])){
+             if(isset($_SESSION["username"])){
+                 if(!isset($_SESSION["cart"])){
+                    $_SESSION["cart"] = array();
+                 }
              
-                array_push($_SESSION["cart"], array("name" => $_POST["part"],"quantity" => $_POST["quantity"]));
-             
+                 
+                 //See if already in cart
+                $found = false;
+                if(isset($_SESSION["cart"])){
+                    foreach($_SESSION["cart"] as &$carPart){
+                        if($carPart["name"] == $row["name"] && $carPart["store"] == $_POST["store"]){
+                            $carPart["quantity"] += $_POST["quantity"];
+                            $found = true;
+                        }
+                    }
+                }
+
+                if(!$found){
+                    array_push($_SESSION["cart"], array("name" => $row["name"],"quantity" => $_POST["quantity"], "store" => $_POST["store"]));
+                }
+                
+
                 echo "Parts have been added to cart! <br/>";
-             
+
                 print_r($_SESSION["cart"]);
              }
              
