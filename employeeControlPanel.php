@@ -18,6 +18,8 @@
     <div id="login-content-wrapper">';
         
     echo"<a href = >Account Management</a><br/><br/>";
+    
+    echo '<a href="storeInventory.php">Store Inventory</a> <br/><br/>';
 
     if($_SESSION["type"] == "manager"){
         echo '<a href="storeOrderHistory.php">Store Order History</a>';
