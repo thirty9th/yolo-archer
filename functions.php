@@ -97,12 +97,23 @@
         $words;
     }
     
-    function add_to_cart($id, $store_id, $part_id, $quantity){
+    function get_store_address() {
+                $dbHost = "68.191.214.214";
+                $dbUsername = "galefisher";
+                $dbPassword = "galefisher";       
+                $dbTable = "galefisherautoparts";
+                $dbPort = 3306;
+                $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, $dbPort);
+                $query = "select distinct address from store";
+                $result = mysqli_query($con, $query);
+                $storeIds = array();
+                while(!is_null($row = mysqli_fetch_array($result))){
+                    array_push($storeIds, $row["address"]);
+                };
+                mysqli_close($con);
+                return $storeIds;
+            }
         
-        
-        
-    }
-    
     function checkout($cart){
         //first value is store_id, second is part_id, third is quantity
         
