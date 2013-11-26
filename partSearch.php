@@ -1,4 +1,8 @@
 <?php
+    session_start();
+
+    ini_set('session.use_cookies', '1');
+
     // Header material
     echo '
     <html>
@@ -46,7 +50,7 @@ Search: <input type="text" name="search" value="" />
         echo "<table border=\"1\" cellpadding=\"10\"> <thead> <tr> <th>Name</th> <th>Type</th> <th>Description</th> <th>Price</th> </tr>";
         echo "<tbody>";
         while(($row = mysqli_fetch_array($query)) != NULL){
-            echo "<tr> <td>" . $row['name'] . "</td> <td>" . $row['type'] . "</td> <td>" . $row['description'] . "</td> <td>$" . $row['price'] . "</td> </tr>";
+            echo "<tr> <td> <a href=\"part.php?part=" . $row['name'] . "\">" . $row['name']  . "</td> <td>" . $row['type'] . "</td> <td>" . $row['description'] . "</td> <td>$" . $row['price'] . "</td> </tr>";
         }
         echo "</tbody> </table>";
       }
