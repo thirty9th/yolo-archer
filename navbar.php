@@ -14,8 +14,16 @@ echo '
 		</div>
 		<div id="navbar-item">
 			<img src="images/button_navbar_about.png" alt="About Us" />
-		</div>
-	</div>
+		</div>';
+                if(isset($_SESSION["username"])){
+                    if($_SESSION["type"]=="customer"){
+                        echo"<div id=\"navbar-item\">
+                        	<a href=\"checkout.php\">checkout</a>
+                            </div>'";
+                    }
+                }
+
+	echo '</div>
 	<div class="login">';
 	if (!isset($_SESSION['username']))	// User is not logged in yet
 	{
@@ -25,7 +33,7 @@ echo '
 	else	// User is logged in
 	{
 		echo '
-			<p>User:</p><a>[' . $_SESSION['username'] . ']</a>&nbsp;<a href="logout.php">Logout</a>';
+			<p>User:</p><a href="customerControlPanel.php">[' . $_SESSION['username'] . ']</a>&nbsp;<a href="logout.php">Logout</a>';
 	}
 	echo '
 	</div>
