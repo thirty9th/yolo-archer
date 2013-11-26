@@ -21,7 +21,7 @@
 
     echo '<a href="customerOrderHistory.php">Order History</a>';
 
-// Footer
+    // Footer
     echo '
             </div>';
     include_once('footer.php');
