@@ -24,7 +24,7 @@ function checkLoginInfo($inUsername, $inPassword)
 	
 	// Open a database connection
 	$dbHost = '68.191.214.214';
-    $dbUsername = 'galefisher';
+        $dbUsername = 'galefisher';
 	$dbPassword = 'galefisher';       
 	$dbTable = 'galefisherautoparts';
 	$dbPort = 3306;
@@ -53,6 +53,7 @@ function checkLoginInfo($inUsername, $inPassword)
 		echo '<p>Thank you for logging in, ' . $inUsername . '.</p>
 			<a href="main.php">Return Home</a>';
 		$_SESSION['username'] = $inUsername;
+                $_SESSION['type'] = "customer";
 	}
 	else
 	{
