@@ -2,7 +2,7 @@
     
     //This function writes a record to the store_order_history table,
     //And updates the sells table to reflect the restocking of the part.
-    function restock($emp_id, $store_id, $part_id, $quantity){
+    function restock($emp_username, $address, $part, $quantity){
         //Connect to database
         $dbHost = "68.191.214.214";
         $dbUsername = "galefisher";
@@ -16,6 +16,22 @@
             }
 
         mysqli_set_charset($con, 'utf-8'); 
+        
+        $sql = "select id from employee where username =\"" . $emp_username . "\"";
+        $query = mysqli_query($con, $sql);
+        $row = mysqli_fetch_array($query);
+        $emp_id = $row["id"];
+        
+        $sql = "select id from store where address like\"%" . $address . "%\"";
+        $query = mysqli_query($con, $sql);
+        $row = mysqli_fetch_array($query);
+        $store_id = $row["id"];
+        
+        $sql = "select id from part where name like\"%" . $part . "%\"";
+        $query = mysqli_query($con, $sql);
+        $row = mysqli_fetch_array($query);
+        $part_id = $row["id"];
+        
 
         //Also need order date
         $sql = "insert into store_order_history (employee_id, store_id, part_id, quantity, order_date, expec_arrival_date) VALUES (" . $emp_id . ", " . $store_id . " , " . $part_id . ", " . $quantity . ", NOW(), Date_add(NOW(),interval 1 WEEK))";
@@ -31,7 +47,6 @@
                     exit;
         } 
         
-        echo "Restock was a success!";
         mysqli_close($con);
     }
     
@@ -111,7 +126,24 @@
                 };
                 mysqli_close($con);
                 return $storeIds;
-            }
+    }
+    
+    function get_part_names(){
+        $dbHost = "68.191.214.214";
+                $dbUsername = "galefisher";
+                $dbPassword = "galefisher";       
+                $dbTable = "galefisherautoparts";
+                $dbPort = 3306;
+                $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, $dbPort);
+                $query = "select distinct name from part";
+                $result = mysqli_query($con, $query);
+                $parts = array();
+                while(!is_null($row = mysqli_fetch_array($result))){
+                    array_push($parts, $row["name"]);
+                };
+                mysqli_close($con);
+                return $parts;
+    }
         
     //Function found online at http://stackoverflow.com/questions/4466159/delete-element-from-multidimensional-array-based-on-value
     function removeElementWithValue($array, $key, $value){
