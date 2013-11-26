@@ -42,8 +42,15 @@ echo '
 	}
 	else	// User is logged in
 	{
-		echo '
+                if($_SESSION["type"] == "customer"){
+                    echo '
 			<p>User:</p><a href="customerControlPanel.php">[' . $_SESSION['username'] . ']</a>&nbsp;<a href="logout.php">Logout</a>';
+                } 
+                else{
+                     echo '
+			<p>User:</p><a href="employeeControlPanel.php">[' . $_SESSION['username'] . ']</a>&nbsp;<a href="logout.php">Logout</a>';
+                }
+		
 	}
 	echo '
 	</div>
