@@ -5,6 +5,9 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <?php
+        session_start();
+
+        ini_set('session.use_cookies', '1');
         // Header material
         echo '
         <html>
