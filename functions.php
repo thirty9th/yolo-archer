@@ -63,8 +63,7 @@
                     exit;
         }
         
-        echo "Purchase was a success!";
-        mysqli_close($con);
+       mysqli_close($con);
         
     }
 
@@ -114,15 +113,62 @@
                 return $storeIds;
             }
         
-    function checkout($cart){
-        //first value is store_id, second is part_id, third is quantity
-        
-        //check if first store_id has enough part_id for given quantity in the sells table
-        
-        //return true if ok
-        
-        //false otherwise
-        return true;
+    //Function found online at http://stackoverflow.com/questions/4466159/delete-element-from-multidimensional-array-based-on-value
+    function removeElementWithValue($array, $key, $value){
+     foreach($array as $subKey => $subArray){
+          if($subArray[$key] == $value){
+               unset($array[$subKey]);
+          }
+     }
+     return $array;
+}
+
+function printCustomerOrderHistory($customerId){
+            $dbHost = "68.191.214.214";
+            $dbUsername = "galefisher";
+            $dbPassword = "galefisher";       
+            $dbTable = "galefisherautoparts";
+            $dbPort = 3306;
+            $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, $dbPort);
+            if (!$con) {
+                exit('Connect Error (' . mysqli_connect_errno() . ') '
+                    . mysqli_connect_error());
+                }
+
+            mysqli_set_charset($con, 'utf-8'); 
+
+            $sql = "select * from customer_order_history where customer_id = " . $customerId;
+            $query = mysqli_query($con, $sql);
+
+            echo "<table border=\"1\"> <thead> <tr> <th>Order ID</th> <th>Customer ID</th> <th>Store ID</th> <th>Part ID</th> <th>Quantity</th> <th>Order Date</th> <th>Arrival Date</th> </tr>";
+            echo "<tbody>";
+            while(($row = mysqli_fetch_array($query)) != NULL){
+                //echo "<tr> <td>" . $row['id'] . "</td> <td>" . $row['customer_id'] . "</td> <td>" . $row['store_id'] . "</td> <td>" . $row['part_id'] . "</td> <td>" . $row['quantity'] . "</td> <td>" . substr($row['order_date'],0, strpos($row['order_date'], " ")) . "</td> <td>" . substr($row['expec_arrival_date'],0, strpos($row['expec_arrival_date'], " ")) . "</td>  </tr>";
+                echo "<tr> <td>" . $row['id'] . "</td> <td>" . $row['customer_id'] . "</td> <td>" . $row['store_id'] . "</td> <td>" . $row['part_id'] . "</td> <td>" . $row['quantity'] . "</td> <td>" . $row["order_date"] . "</td> <td>" . $row['expec_arrival_date']. "</td>  </tr>";
+            }
+            echo "</tbody> </table>";
+
+
+            mysqli_close($con);
+
+}
+    
+    
+    function get_customer_ids() {
+        $dbHost = "68.191.214.214";
+        $dbUsername = "galefisher";
+        $dbPassword = "galefisher";       
+        $dbTable = "galefisherautoparts";
+        $dbPort = 3306;
+        $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, $dbPort);
+        $query = "select id from customer";
+        $result = mysqli_query($con, $query);
+        $customerIds = array();
+        while(($row = mysqli_fetch_array($result)) != NULL){
+            array_push($customerIds, $row["id"]);
+        };
+        mysqli_close($con);
+        return $customerIds;
     }
 
 ?>
