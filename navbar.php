@@ -18,7 +18,17 @@ echo '
                 if(isset($_SESSION["username"])){
                     if($_SESSION["type"]=="customer"){
                         echo"<div id=\"navbar-item\">
-                        	<a href=\"checkout.php\">checkout</a>
+                        	<a href=\"checkout.php\">Checkout</a>
+                            </div>'";
+                    }
+                    if($_SESSION["type"]=="employee" || $_SESSION["type"] == "manager"){
+                        echo"<div id=\"navbar-item\">
+                        	<a href=\"restock.php\">Restock Parts</a>
+                            </div>'";
+                    }
+                    if($_SESSION["type"]=="manager"){
+                        echo"<div id=\"navbar-item\">
+                        	<a href=\"employeeRegistration.php\">Register New Employee</a>
                             </div>'";
                     }
                 }
