@@ -41,10 +41,7 @@
          
          echo "<form action = \"part.php?part=" . $_GET["part"] . "\" method = \"POST\">";
     
-        echo "
-         <div id=\"product-title\">
-            <p style=\"font-size: 30px;\">" . $row["name"] . "</p><br/>
-         </div> <br/>";
+        echo "<p style=\"font-size: 30px;\">" . $row["name"] . "</p><br/>";
          
          echo"<img src=\"" . $row["image"] . "\" width=\"300\" height=\"300\"/> <br/>";
          
@@ -67,40 +64,45 @@
          
          if(isset($_POST["quantity"])){
              if(isset($_SESSION["username"])){
-                 if(!isset($_SESSION["cart"])){
-                    $_SESSION["cart"] = array();
-                 }
-             
-                 
-                 //See if already in cart
-                $found = false;
-                if(isset($_SESSION["cart"])){
-                    foreach($_SESSION["cart"] as &$carPart){
-                        if($carPart["name"] == $row["name"] && $carPart["store"] == $_POST["store"]){
-                            $carPart["quantity"] += $_POST["quantity"];
-                            $found = true;
-                        }
+                if($_SESSION["type"] == "customer"){
+                    if(!isset($_SESSION["cart"])){
+                       $_SESSION["cart"] = array();
                     }
+
+
+                    //See if already in cart
+                   $found = false;
+                   if(isset($_SESSION["cart"])){
+                       foreach($_SESSION["cart"] as &$carPart){
+                           if($carPart["name"] == $row["name"] && $carPart["store"] == $_POST["store"]){
+                               $carPart["quantity"] += $_POST["quantity"];
+                               $found = true;
+                           }
+                       }
+                   }
+
+                   if(!$found){
+                       array_push($_SESSION["cart"], array("name" => $row["name"],"quantity" => $_POST["quantity"], "store" => $_POST["store"]));
+                   }
+
+
+                   echo "Parts have been added to cart! <br/>";
+
+                   //print_r($_SESSION["cart"]);
                 }
 
-                if(!$found){
-                    array_push($_SESSION["cart"], array("name" => $row["name"],"quantity" => $_POST["quantity"], "store" => $_POST["store"]));
+                else{
+                    echo "You are not using a customer account! Are you an employee?";
                 }
-                
-
-                echo "Parts have been added to cart! <br/>";
-
-                print_r($_SESSION["cart"]);
-             }
              
+             
+             }
              else{
-                 echo "You are not logged in! Please login to make a purchase.";
+                 echo "You have not logged in! Please login or register to continue";
              }
-             
-             
-             
-             
+            
          }
+         mysqli_close($con);
     }
     
     else{
