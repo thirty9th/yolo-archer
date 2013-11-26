@@ -137,14 +137,29 @@ function printCustomerOrderHistory($customerId){
 
             mysqli_set_charset($con, 'utf-8'); 
 
-            $sql = "select * from customer_order_history where customer_id = " . $customerId;
+            $sql = "select * from customer_order_history where customer_id = " . $customerId . " order by id desc";
             $query = mysqli_query($con, $sql);
 
-            echo "<table border=\"1\"> <thead> <tr> <th>Order ID</th> <th>Customer ID</th> <th>Store ID</th> <th>Part ID</th> <th>Quantity</th> <th>Order Date</th> <th>Arrival Date</th> </tr>";
+            echo "<table border=\"1\"> <thead> <tr> <th>Order ID</th> <th>Customer Name</th> <th>Store</th> <th>Part Name</th> <th>Quantity</th> <th>Cost</th> <th>Order Date</th> <th>Arrival Date</th> </tr>";
             echo "<tbody>";
             while(($row = mysqli_fetch_array($query)) != NULL){
-                //echo "<tr> <td>" . $row['id'] . "</td> <td>" . $row['customer_id'] . "</td> <td>" . $row['store_id'] . "</td> <td>" . $row['part_id'] . "</td> <td>" . $row['quantity'] . "</td> <td>" . substr($row['order_date'],0, strpos($row['order_date'], " ")) . "</td> <td>" . substr($row['expec_arrival_date'],0, strpos($row['expec_arrival_date'], " ")) . "</td>  </tr>";
-                echo "<tr> <td>" . $row['id'] . "</td> <td>" . $row['customer_id'] . "</td> <td>" . $row['store_id'] . "</td> <td>" . $row['part_id'] . "</td> <td>" . $row['quantity'] . "</td> <td>" . $row["order_date"] . "</td> <td>" . $row['expec_arrival_date']. "</td>  </tr>";
+                $sql = "select name, price from part where id = " . $row["part_id"];
+                $result = mysqli_query($con, $sql);
+                $newrow = mysqli_fetch_array($result);
+                $part = $newrow["name"];
+                $price = $newrow["price"];
+                
+                $sql = "select address from store where id = " . $row["store_id"];
+                $result = mysqli_query($con, $sql);
+                $newrow = mysqli_fetch_array($result);
+                $address = $newrow["address"];
+                
+                $sql = "select name from customer where id = " . $row["customer_id"];
+                $result = mysqli_query($con, $sql);
+                $newrow = mysqli_fetch_array($result);
+                $name = $newrow["name"];
+                                
+                echo "<tr> <td>" . $row['id'] . "</td> <td>" . $name . "</td> <td>" . $address . "</td> <td>" . $part . "</td> <td>" . $row['quantity'] . "</td> <td>$" . $row["quantity"] * $price . "</td> <td>" . $row["order_date"] . "</td> <td>" . $row['expec_arrival_date']. "</td>  </tr>";
             }
             echo "</tbody> </table>";
 
