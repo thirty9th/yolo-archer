@@ -82,7 +82,7 @@
         
     }
 
-    function return_part($store_id, $part_id, $cust_id, $reason, $quantity){
+    function return_part($address, $part, $name, $reason, $quantity){
         $dbHost = "68.191.214.214";
         $dbUsername = "galefisher";
         $dbPassword = "galefisher";       
@@ -93,6 +93,21 @@
             exit('Connect Error (' . mysqli_connect_errno() . ') '
                 . mysqli_connect_error());
             }
+        
+        $sql = "select id from store where address like\"%" . $address . "%\"";
+        $query = mysqli_query($con, $sql);
+        $row = mysqli_fetch_array($query);
+        $store_id = $row["id"];
+        
+        $sql = "select id from part where name like\"%" . $part . "%\"";
+        $query = mysqli_query($con, $sql);
+        $row = mysqli_fetch_array($query);
+        $part_id = $row["id"];    
+        
+        $sql = "select id from customer where name like\"%" . $name . "%\"";
+        $query = mysqli_query($con, $sql);
+        $row = mysqli_fetch_array($query);
+        $cust_id = $row["id"];
 
         $sql = "insert into returns (store_id, part_id, customer_id, reason, quantity) VALUES (" . $store_id .", " . $part_id . ", " . $cust_id . ", \"" . $reason . "\", " . $quantity . ")";
         if(!mysqli_query($con, $sql)){
@@ -106,10 +121,8 @@
             exit;
         }   
             
-        echo "Return was a success!";
         mysqli_close($con);
-        $words;
-    }
+   }
     
     function get_store_address() {
                 $dbHost = "68.191.214.214";
