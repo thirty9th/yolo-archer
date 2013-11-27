@@ -5,7 +5,7 @@ echo '
 	<div id="header-small-logo-wrapper">
 		<a href="main.php"><img src="images/button_home_tab.png" alt="Logo" /></a>
 	</div>
-	<div id="navbar-wrapper">
+	<div class="navbar-wrapper">
 		<div id="navbar-item">
 			<a href="main.php"><img src="images/button_navbar_home.png" alt="Home Page" /></a>
 		</div>
@@ -17,19 +17,19 @@ echo '
 		</div>';
                 if(isset($_SESSION["username"])){
                     if($_SESSION["type"]=="customer"){
-                        echo"<div id=\"navbar-item\">
-                        	<a href=\"checkout.php\">Checkout</a>
-                            </div>";
+                        echo '<div id="navbar-item">
+                        	<a href="checkout.php"><img src="images/button_navbar_checkout.png" alt="Check Out" /></a>
+                            </div>';
                     }
                     if($_SESSION["type"]=="employee" || $_SESSION["type"] == "manager"){
-                        echo"<div id=\"navbar-item\">
-                        	<a href=\"restock.php\">Restock Parts</a>
-                            </div>";
+                        echo '<div id="navbar-item">
+                        	<a href="restock.php"><img src="images/button_navbar_restock.png" alt="Restock Parts" /></a>
+                            </div>';
                     }
                     if($_SESSION["type"]=="manager"){
-                        echo"<div id=\"navbar-item\">
-                        	<a href=\"employeeRegistration.php\">Register New Employee</a>
-                            </div>";
+                        echo '<div id="navbar-item">
+                        	<a href="employeeRegistration.php"><img src="images/button_navbar_add_employee.png" alt="Add Employee" /></a>
+                            </div>';
                     }
                 }
 

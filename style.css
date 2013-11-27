@@ -81,10 +81,10 @@ form.search-input
 	margin-right: auto;
 	display: block;
 	overflow: auto;
-	background-color: #d3d3d3;
 	border-top: 1px solid #DBDBDB;
 	border-left: 1px solid #DBDBDB;
 	border-right: 1px solid #DBDBDB;
+	background-image: url('images/logo_background.png');
 }
 
 #logo-image
@@ -95,15 +95,7 @@ form.search-input
 
 #logo-image img
 {
-	width: 175px;
-}
-
-#logo-title
-{
-	float: left;
-	margin: 15px;
-	border-top: 1px solid #2a2a2a;
-	border-bottom: 1px solid #2a2a2a;
+	width: 440px;
 }
 
 #logo-title p
@@ -113,30 +105,24 @@ form.search-input
 	font-weight: bold;
 }
 
-#navbar-wrapper
+.navbar-wrapper
 {
-	width: 800px;
 	height: 45px;
-	margin-top: 0px;
-	padding: 0px;
-	margin-left: auto;
-	margin-right: auto;
-	background-color: #a8a8a8;
+	float: left;
+	margin-left: 35px;
 }
 
 #navbar-item
 {
 	float: left;
-	width: 130px;
-	height: 45px;
-	border-left: 1px solid #b9b9b9;
+	width: 100px;
+	height: 40px;
+	padding-top: 5px;
 }
 
-#navbar-item p
+#navbar-item img
 {
-	margin-left: 20px;
-	margin-right: auto;
-	width: 50px;
+	width: 100px;;
 }
 
 #content-wrapper

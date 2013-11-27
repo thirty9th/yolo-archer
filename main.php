@@ -18,11 +18,7 @@ echo '
 	echo '
 	<div id="logo-wrapper">
 		<div id="logo-image">
-			<img src="images/logo_large.png" alt="Logo" />
-		</div>
-		<div id="logo-title">
-			<p>Gale-Fisher<br/>
-			Auto Parts</p>
+			<img src="images/logo_banner.png" alt="Logo" />
 		</div>
 	</div>
 	<div id="content-wrapper">
