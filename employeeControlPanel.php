@@ -17,7 +17,7 @@
     echo '
     <div id="login-content-wrapper">';
         
-    echo"<a href = >Account Management</a><br/><br/>";
+    echo'<a href ="employeeAccountManagement.php" >Account Management</a><br/><br/>';
     
     echo '<a href="storeInventory.php">Store Inventory</a> <br/><br/>';
     

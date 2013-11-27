@@ -18,7 +18,7 @@
     <div id="login-content-wrapper">';
         
     if(isset($_SESSION["username"])){
-        if($_SESSION["type"] == "manager"){
+        if($_SESSION["type"] == "manager" || $_SESSION["type"]=="employee"){
              $dbHost = "68.191.214.214";
              $dbUsername = "galefisher";
              $dbPassword = "galefisher";       

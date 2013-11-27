@@ -272,5 +272,28 @@ function printCustomerOrderHistory($customerId){
         }
         echo "</tbody> </table>";
     }
+    
+    function get_enum_values( $table, $field ) {
+                $dbHost = "68.191.214.214";
+                $dbUsername = "galefisher";
+                $dbPassword = "galefisher";       
+                $dbTable = "galefisherautoparts";
+                $dbPort = 3306;
+                $con = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbTable, $dbPort);
+                $query = "SELECT column_type FROM information_schema.`COLUMNS` WHERE table_schema = 'galefisherautoparts' AND table_name = '". $table ."' AND column_name = '". $field . "'";
+                $result = mysqli_query($con, $query); 
+                $row = mysqli_fetch_array($result);
+                //print_r($row);
+                $words = implode($row);
+                $words = substr($words, 0, strlen($words)/2);
+                preg_match('/^enum\((.*)\)$/', $words, $matches);
+                    foreach( explode(',', $matches[1]) as $value )
+                    {
+                        $enum[] = trim( $value, "'" );
+                    }
+                mysqli_close($con);
+                return $enum;
+                
+            }
 
 ?>
