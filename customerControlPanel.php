@@ -17,7 +17,7 @@
     echo '
     <div id="login-content-wrapper">';
         
-    echo"<a href = >Account Management</a><br/><br/>";
+    echo'<a href = "customerAccountManagement.php">Account Management</a><br/><br/>';
 
     echo '<a href="customerOrderHistory.php">Order History</a>';
 
