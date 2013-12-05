@@ -116,7 +116,7 @@
 							echo '<td>' . $carPart["name"] . '</td>';
 							echo '<td>' . $carPart["quantity"] . '</td>';
 							echo '<td>' . $carPart["store"] . '</td>';
-							echo '<td>' . $price * $carPart["quantity"] . '</td>';
+							echo '<td>$' . $price * $carPart["quantity"] . '</td>';
                             $total += $price * $carPart["quantity"];
 							echo '</tr>';
 							
@@ -127,7 +127,7 @@
 							</table>
 						 </div><br/>
 						 <div id="total">
-							<p>Total: <b>' . $total . '</b></p>
+							<p>Total: <b>$' . $total . '</b></p>
 						 </div><br /><br />';
                          echo "<form name = \"checkout\" action =\"checkout.php?finalize=true\" method = \"POST\" style=\"float:right\">";
                          echo "<input type=\"submit\" value=\"Finalize\" />";
