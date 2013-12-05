@@ -27,7 +27,7 @@ echo '
 		</div>
 		<div id="four-square-wrapper">
 			<div id="top-left">
-			</div>
+                        </div>
 			<div id="top-right">
 			</div>
 			<div id="bottom-left">

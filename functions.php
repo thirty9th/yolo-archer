@@ -295,5 +295,13 @@ function printCustomerOrderHistory($customerId){
                 return $enum;
                 
             }
+            
+     function get_part_count(){
+         $count = 0;
+         foreach($_SESSION["cart"] as $part){
+             $count += $part["quantity"];
+         }
+         return $count;
+     }
 
 ?>

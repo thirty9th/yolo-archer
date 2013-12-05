@@ -16,7 +16,7 @@
     include_once('navbar.php');
     echo '
 		<div id="login-content-wrapper">
-			<p class="content-title">Shopping Cart (' . count($$_SESSION["cart"]) . ')</p>
+			<p class="content-title">Shopping Cart (' . get_part_count() . ')</p>
 			<div id="rule"></div>
 			<div id="cart-content-wrapper">';
 			
