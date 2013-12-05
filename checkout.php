@@ -129,7 +129,7 @@
 						 <div id="total">
 							<p>Total: <b>' . $total . '</b></p>
 						 </div><br /><br />';
-                         echo '<form name = \"checkout\" action = \"checkout.php?finalize=true\" method = \"POST\" style="float:right">';
+                         echo "<form name = \"checkout\" action =\"checkout.php?finalize=true\" method = \"POST\" style=\"float:right\">";
                          echo "<input type=\"submit\" value=\"Finalize\" />";
                          echo "</form>";
                     }
