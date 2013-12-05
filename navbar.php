@@ -44,7 +44,7 @@ echo '
 	{
                 if($_SESSION["type"] == "customer"){
                     echo '
-			<p>User:</p><a href="customerControlPanel.php">[' . $_SESSION['username'] . ']</a>&nbsp;<a href="logout.php">Logout</a>';
+			<a href="customerControlPanel.php">[' . $_SESSION['username'] . ']</a>&nbsp;<a href="logout.php">Logout</a>';
                 } 
                 else{
                      echo '
@@ -53,7 +53,14 @@ echo '
 		
 	}
 	echo '
-	</div>
+	</div>';
+	if ($_SESSION["type"] == "customer") {
+		echo '
+		<div class="cart">
+			<a href="shoppingCart.php"><img src="images/shopping_cart.png" alt="Shopping Cart" /></a>
+		</div>';
+	}
+echo'
 </div>';
 
 ?>

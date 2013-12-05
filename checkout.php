@@ -91,8 +91,11 @@
                     //Print all car parts
                     if(!$finalized){
                         $total = 0;
-                        echo "<table border=\"1\" cellpadding=\"10\"> <thead> <tr> <th>Part</th> <th>Quantity</th> <th>Store</th> <th>Cost for Quantity</th></tr>";
-                        echo "<tbody>"; 
+						$rowCount = 0;
+                        echo '
+						<div id="cart-content-wrapper">
+							<table>
+								<tr class="first"><td>Part</td><td>Quantity</td><td>Store</td><td>Cost for Quantity</td></tr>';
                         foreach($_SESSION["cart"] as &$carPart){ //name, quantity, store
                             $sql = "select price from part where name =\"" . $carPart["name"] . "\"";
                             $result = mysqli_query($con, $sql);
@@ -105,15 +108,28 @@
                             $row = mysqli_fetch_array($result);
                             $store = $row["address"];
 
-                            echo "<tr> <td>" . $carPart["name"] . "</td> <td>" . $carPart["quantity"]  . "</td> <td>" . $store . "</td> <td>$" . $price * $carPart["quantity"] . "</td> </tr>";
+							echo '<tr';
+							if ($rowCount % 2 == 0) {
+								echo ' style="background-color:#e3e3e3"';
+							}
+							echo '>';
+							echo '<td>' . $carPart["name"] . '</td>';
+							echo '<td>' . $carPart["quantity"] . '</td>';
+							echo '<td>' . $carPart["store"] . '</td>';
+							echo '<td>' . $price * $carPart["quantity"] . '</td>';
                             $total += $price * $carPart["quantity"];
+							echo '</tr>';
+							
+							$rowCount += 1;
 
                         }
-                         echo "</tbody> </table> <br/>";
-                         echo "Your total is: $" . $total . "<br/><br/>";
-
-                         echo "Finalize Purchase? <br/><br/>";
-                         echo "<form name = \"checkout\" action = \"checkout.php?finalize=true\" method = \"POST\">";
+                         echo '
+							</table>
+						 </div><br/>
+						 <div id="total">
+							<p>Total: <b>' . $total . '</b></p>
+						 </div><br /><br />';
+                         echo '<form name = \"checkout\" action = \"checkout.php?finalize=true\" method = \"POST\" style="float:right">';
                          echo "<input type=\"submit\" value=\"Finalize\" />";
                          echo "</form>";
                     }

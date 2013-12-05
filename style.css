@@ -1,14 +1,23 @@
-/* Stylesheet for program5.php */
-
 /* Reset margins, set font*/
 *
 {
 	margin: 0px;
 	padding: 0px;
-	font-family: Tahoma;
+	font-family: Arial;
 	font-size: 14px;
 	color: #2A2A2A;
 	overflow: auto;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+a:hover
+{
+	color: #c12020;
+	text-decoration: underline;
 }
 
 /* Main Styles */
@@ -34,11 +43,18 @@ body
 	border-right: 1px solid #cecece;
 }
 
+.cart
+{
+	min-height: 35px;
+	float: right;
+	padding: 5px;
+	border-left: 1px solid #CECECE;
+}
+
 .login
 {
 	min-height: 35px;
 	float: right;
-	margin: 0px auto;
 	padding: 5px;
 	border-left: 1px solid #cecece;
 }
@@ -115,14 +131,14 @@ form.search-input
 #navbar-item
 {
 	float: left;
-	width: 100px;
 	height: 40px;
-	padding-top: 5px;
+	margin-top: 2px;
+	margin-left: 2px;
 }
 
 #navbar-item img
 {
-	width: 100px;;
+	height: 40px;
 }
 
 #content-wrapper
@@ -144,8 +160,49 @@ form.search-input
 p.content-title
 {
 	color: #2a2a2a;
-	font-size: 16px;
+	font-size: 24px;
 	font-weight: bold;
+}
+
+#rule
+{
+	height: 1px;
+	background-color: #898989;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#cart-content-wrapper
+{
+	margin: 10px;
+	background-color: #f2f2f2;
+}
+
+#cart-content-wrapper table
+{
+	border-collpase: collapse;
+}
+
+#cart-content-wrapper table tr.first
+{
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#cart-content-wrapper table td
+{
+	padding: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+#total
+{
+	float: right;
+	padding: 5px;
+	background-color: #f2f2f2;
 }
 
 #four-square-wrapper
@@ -190,12 +247,13 @@ p.content-title
 #login-content-wrapper
 {
 	width: 800px;
-	background-color: #d3d3d3;
+	background-color: #e3e3e3;
 	border: 1px solid #b9b9b9;
-	min-height: 250px;
+	min-height: 550px;
 	margin-top: 100px;
 	margin-left: auto;
 	margin-right: auto;
+	padding: 15px;
 }
 
 #footer-wrapper
