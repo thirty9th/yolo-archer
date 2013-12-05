@@ -15,11 +15,11 @@
 
     include_once('navbar.php');
     echo '
-    <div id="login-content-wrapper">';
-        
-    echo'<a href = "customerAccountManagement.php">Account Management</a><br/><br/>';
-
-    echo '<a href="customerOrderHistory.php">Order History</a>';
+    <div id="login-content-wrapper">
+        <p class="content-title">Customer Control Panel</p>
+		<div id="rule"></div>
+		<a href = "customerAccountManagement.php">Account Management</a><br/><br/>
+		<a href="customerOrderHistory.php">Order History</a>';
 
     // Footer
     echo '

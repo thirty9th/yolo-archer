@@ -22,12 +22,10 @@ echo '
 		</div>
 	</div>
 	<div id="content-wrapper">
-		<div id="content-title">
-			<p>Daily Deals</p>
-		</div>
+		<p class="content-title">Daily Deals</p>
 		<div id="four-square-wrapper">
 			<div id="top-left">
-                        </div>
+			</div>
 			<div id="top-right">
 			</div>
 			<div id="bottom-left">

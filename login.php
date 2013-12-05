@@ -79,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	// Check login info
 	echo '<p class="content-title">Login Status</p>
+	<div id="rule"></div>
 	<div id="login-result">
 		<p>';
 	checkLoginInfo($_POST['username'], $_POST['password']);
@@ -92,16 +93,15 @@ else	// Page was (probably) requested via simple HTTP request
 	// Display initial page requesting login info
 	// Body
 	echo '
-		<div id="content-title">
-                        <p class="content-title">Please enter your customer login information below.</p>
-			<form class="login-input" method="POST">
-				<p class="normal">Username </p><input type="text" name="username" /><br />
-				<p class="normal">Password </p><input type="password" name="password" /><br />
-				<input type="submit" id="submit" value="Submit" style="color:#2a2a2a; float:right;" />
-			</form>
-		</div>';
+		<p class="content-title">Please enter your customer login information below.</p>
+		<div id="rule"></div>
+		<form class="login-input" method="POST">
+			<p class="normal">Username </p><input type="text" name="username" /><br />
+			<p class="normal">Password </p><input type="password" name="password" /><br />
+			<input type="submit" id="submit" value="Submit" style="color:#2a2a2a; float:right;" />
+		</form>';
         
-        echo 'Employee? Login <a href = "employeeLogin.php">Here</a>';
+    echo 'Employee? Login <a href = "employeeLogin.php">Here</a>';
 }
 
 // Footer

@@ -15,13 +15,12 @@
 
     include_once('navbar.php');
     echo '
-    <div id="login-content-wrapper">';
-        
-    echo'<a href ="employeeAccountManagement.php" >Account Management</a><br/><br/>';
-    
-    echo '<a href="storeInventory.php">Store Inventory</a> <br/><br/>';
-    
-    echo '<a href="returns.php">Return Part</a> <br/><br/>';
+		<div id="login-content-wrapper">
+			<p class="content-title">Employee Control Panel</p>
+			<div id="rule"></div>
+			<a href ="employeeAccountManagement.php" >Account Management</a><br/><br/>
+			<a href="storeInventory.php">Store Inventory</a> <br/><br/>
+			<a href="returns.php">Return Part</a> <br/><br/>';
 
     if($_SESSION["type"] == "manager"){
         echo '<a href="storeOrderHistory.php">Store Order History</a> <br/><br/>';
@@ -31,7 +30,7 @@
 
     // Footer
     echo '
-            </div>';
+		</div>';
     include_once('footer.php');
     echo '
     </body>

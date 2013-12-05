@@ -36,13 +36,12 @@ else	// Page was (probably) requested via simple HTTP request
 	// Display initial page confirming user logout
 	// Body
 	echo '
-		<div id="content-title">
-			<p class="content-title">Are you sure you want to log out?</p>
-			<form class="login-input" method="POST">
-				<input type="submit" id="submit" value="Yes" style="color:#2a2a2a;" />
-			</form>
-			<a href="main.php">Cancel</a>
-		</div>';
+		<p class="content-title">Are you sure you want to log out?</p>
+		<div id="rule"></div>
+		<form class="login-input" method="POST">
+			<input type="submit" id="submit" value="Yes" style="color:#2a2a2a;" />
+		</form>
+		<a href="main.php">Cancel</a>';
 }
 	
 // Footer

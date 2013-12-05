@@ -37,7 +37,10 @@
             $row = mysqli_fetch_array($result);
             $cust_id = $row["id"];
             
-            printCustomerOrderHistory($cust_id);
+			echo '
+				<div id="cart-content-wrapper">';
+					printCustomerOrderHistory($cust_id);
+			echo '</div>';
         }
         else{
             echo "You are not a customer! You do not have history!";

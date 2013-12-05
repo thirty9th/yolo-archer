@@ -41,9 +41,11 @@
          
          echo "<form action = \"part.php?part=" . $_GET["part"] . "\" method = \"POST\">";
     
-        echo "<p style=\"font-size: 30px;\">" . $row["name"] . "</p><br/>";
+        echo '<p class="content-title">' . $row["name"] . '</p>
+			<div id="rule"></div>';
+		
          
-         echo"<img src=\"" . $row["image"] . "\" width=\"300\" height=\"300\"/> <br/>";
+         echo '<img src="' . $row["image"] . '" width="300" height="300"/> <br/>';
          
          echo $row["description"] . "<br/>";
          

@@ -62,8 +62,15 @@ body
 form.login-input
 {
 	padding: 10px;
-	background-color: #e3e3e3;
+	background-color: #f2f2f2;
 	width: 300px;
+	margin-bottom: 15px;
+}
+
+#login-result
+{
+	background-color: #f2f2f2;
+	padding: 10px;
 }
 
 form.search-input
@@ -100,7 +107,8 @@ form.search-input
 	border-top: 1px solid #DBDBDB;
 	border-left: 1px solid #DBDBDB;
 	border-right: 1px solid #DBDBDB;
-	background-image: url("images/logo_background.png");
+	background-image: url('images/logo_background.png');
+	padding: 15px;
 }
 
 #logo-image
@@ -145,16 +153,10 @@ form.search-input
 {
 	width: 800px;
 	min-height: 800px;
-	background-color: #2a2a2a;
+	background-color: #e3e3e3;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-#content-title
-{
-	margin: 10px;
-	padding: 5px;
-	background-color: #d3d3d3;
+	padding: 15px;
 }
 
 p.content-title
@@ -170,8 +172,8 @@ p.content-title
 	background-color: #898989;
 	margin-left: 5px;
 	margin-right: 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 #cart-content-wrapper
@@ -205,11 +207,20 @@ p.content-title
 	background-color: #f2f2f2;
 }
 
+#part-search-wrapper
+{
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color:#f2f2f2;
+	padding: 15px;
+}
+
 #four-square-wrapper
 {
 	margin: 10px;
 	padding: 10px;
-	background-color: #d3d3d3;
+	background-color: #f2f2f2;
 }
 
 #top-left
