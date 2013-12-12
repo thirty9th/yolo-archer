@@ -265,6 +265,12 @@ p.small-heading
 	background-color: #f2f2f2;
 }
 
+#four-square-wrapper img
+{
+	width: 200px;
+	border: 1px solid #b9b9b9;
+}
+
 #top-left
 {
 	float: left;
@@ -272,6 +278,7 @@ p.small-heading
 	width: 350px;
 	border-right: 1px solid #b9b9b9;
 	border-bottom: 1px solid #b9b9b9;
+	padding: 5px;
 }
 
 #top-right
@@ -280,6 +287,7 @@ p.small-heading
 	height: 300px;
 	width: 350px;
 	border-bottom: 1px solid #b9b9b9;
+	padding: 5px;
 }
 
 #bottom-left
@@ -288,6 +296,7 @@ p.small-heading
 	height: 300px;
 	width: 350px;
 	border-right: 1px solid #b9b9b9;
+	padding: 5px;
 }
 
 #bottom-right
@@ -295,6 +304,7 @@ p.small-heading
 	float: left;
 	height: 300px;
 	width: 350px;
+	padding: 5px;
 }
 
 #login-content-wrapper
