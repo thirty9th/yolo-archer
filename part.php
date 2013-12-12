@@ -44,21 +44,34 @@
         echo '<p class="content-title">' . $row["name"] . '</p>
 			<div id="rule"></div>';
 		
+		// Image and description box
+		echo '<div id="image-desc-wrapper">
+				<div id="image-desc-image">
+					<img src="' . $row["image"] . '" width="300" height="300"/>;
+				</div>
+				<div id="image-desc-desc">
+					<p class="small-heading">Description</p><br />
+					' . $row["description"] . '
+				</div>
+			</div>';
          
-         echo '<img src="' . $row["image"] . '" width="300" height="300"/> <br/>';
+		 // Price of item
+		 echo '<div id="price-wrapper">
+			<p class="small-heading">Price:</p>';
+			echo "$" . $row["price"];
+		 echo '</div>';
          
-         echo $row["description"] . "<br/>";
-         
-         echo "$" . $row["price"] . "      <input type=\"number\" name=\"quantity\" min=\"1\" max=\"5\"><br/>";
-         
-         $addresses = get_store_address();
-         echo "Store:  <select name=\"store\">";
-         foreach($addresses as $option) : 
-            echo "<option value=". $option . "\">" . $option . "</option>";
-         endforeach;
-         echo"</select> <br/>";
-         
-         echo "<input type = \"submit\" value = \"Add To Cart\" name = \"addToCart\" /> <br/>";
+		 // Add to cart info
+		 echo '<div id="add-to-cart-wrapper">';
+			echo 'Quantity: <input type="number" name="quantity" min="1" max=\5"><br /><br />';
+			$addresses = get_store_address();
+			echo 'Store:  <select name="store">';
+			foreach($addresses as $option) {
+				echo '<option value='. $option . '">' . $option . '</option>';
+			}
+			echo '</select><br/><br />';
+			echo '<input type="submit" value="Add To Cart" name="addToCart" />';
+		 echo '</div>';
          
          
          
